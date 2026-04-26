@@ -1,0 +1,11 @@
+# Bash - Line Feed
+*.sh text eol=lf
+
+# Python
+*.py text eol=lf
+
+# PowerShell - Carriage Return + Line Feed
+*.ps1 text eol=crlf
+
+# Env files
+*.env text eol=lf
