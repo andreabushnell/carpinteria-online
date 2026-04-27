@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import sys
 
 load_dotenv(os.path.join(Path(__file__).resolve().parent.parent.parent, '.env'))
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,8 +21,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'api',
+    'apps.users',
+    'apps.products',
+    'apps.orders',
+    'apps.cart',
+    'core'
 ]
+
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -118,3 +125,5 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+AUTH_USER_MODEL = 'users.User'
