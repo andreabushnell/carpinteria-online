@@ -1,0 +1,34 @@
+:root {
+  /* Colors */
+  --color-primary: #8B5E3C;       /* header */
+  --color-footer: #5B3A29;        /* footer */
+
+  --color-accent: #3FA37C;        /* buttons */
+
+  --color-bg: #F7F5F2;            /* page background */
+  --color-surface: #FFFFFF;       /* cards, header text, button text */
+
+  --color-text-primary: #2F2F2F;  /* product names, active nav */
+  --color-text-secondary: #6B7280; /* nav titles, prices */
+
+  --color-border: #E5E7EB;        /* borders */
+  --color-hover: #F1EFEB;         /* hover states */
+
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+}

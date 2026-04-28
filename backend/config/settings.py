@@ -22,10 +22,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'apps.users',
-    'apps.products',
+    'apps.products.apps.ProductsConfig',
     'apps.orders',
     'apps.cart',
-    'core'
+    'core.services'
 ]
 
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
@@ -124,12 +124,14 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
     'http://localhost',
     'http://127.0.0.1',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+CSRF_COOKIE_HTTPONLY = False
 
 AUTH_USER_MODEL = 'users.User'
