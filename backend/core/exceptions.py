@@ -38,26 +38,12 @@ class EmptyCart(OrderError):
     def __init__(self):
         super().__init__(f"Cannot place order from empty cart.")
 
-class InvalidOrderState(OrderError):
-    code = 'invalid_order_state'
+class InvalidTransition(OrderError):
+    code = 'invalid_transition'
 
-    def __init__(self, state):
-        super().__init__(f"Invalid order state: {state}.")
+    def __init__(self, from_state, to_state, reason=None):
+        message = f"Cannot transition from '{from_state}' to '{to_state}'"
+        if reason:
+            message += f": {reason}"
 
-class InvalidCancellation(OrderError):
-    code = 'invalid_cancellation'
-
-    def __init__(self):
-        super().__init__(f"Invalid cancellation. Order already shipped.")
-
-class PaymentPending(OrderError):
-    code = 'payment_pending'
-
-    def __init__(self):
-        super().__init__(f"Payment pending. Order cannot be shipped.")
-
-class OrderInvalidQuantity(CartError):
-    code = 'invalid_quantity'
-
-    def __init__(self, quantity):
-        super().__init__(f"Invalid quantity: {quantity}.")
+        super().__init__(message)

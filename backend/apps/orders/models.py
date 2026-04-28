@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from backend.apps.products.models import Product
+from apps.products.models import Product
 from core import exceptions
 
 User = settings.AUTH_USER_MODEL
@@ -22,31 +22,47 @@ class Order(models.Model):
     def __str__(self):
         return f"Order {self.id}"
     
-    def calculate_total(self): # Automatically calculates order total
+    def calculate_total(self): 
+        # Calculates order total and updates 
         from decimal import Decimal
         self.total = Decimal('0.00')
         for item in self.details.all():
             self.total += item.quantity * item.unitary_price
         self.save(update_fields=['total'])
     
-    def mark_as_paid(self):
-        self.state = 'paid'
-        self.save(update_fields=['state'])
+    def transition_to(self, new_state):
+        allowed_transitions = {
+            'pending': ['paid', 'cancelled'],
+            'paid': ['shipped', 'cancelled'],
+            'shipped': [],
+            'cancelled': [],
+        }
 
-    def mark_as_shipped(self):
-        if self.state != 'paid':
-            raise exceptions.PaymentPending()
-        else:
-            self.state = 'shipped'
-            self.save(update_fields=['state'])
+        if new_state not in allowed_transitions[self.state]:
 
-    def cancel(self):
-        """Cancel order. Inventory restoration is handled by OrderService.cancel_order()."""
-        if self.state == 'shipped':
-            raise exceptions.InvalidCancellation()
+            reason = self._get_transition_error(new_state)
+
+            raise exceptions.InvalidTransition(
+                from_state=self.state,
+                to_state=new_state,
+                reason=reason
+            )
         
-        self.state = 'cancelled'
+        self.state = new_state
         self.save(update_fields=['state'])
+
+    def _get_transition_error(self, new_state):
+        # Returns the reason for a transition error
+        if self.state == 'pending' and new_state == 'shipped':
+            return "Order must be paid before shipping"
+
+        if self.state == 'shipped' and new_state == 'cancelled':
+            return "Shipped orders cannot be cancelled"
+
+        if self.state == 'cancelled':
+            return "Cancelled orders cannot transition to any other state"
+
+        return "Transition not allowed"
 
 
 class OrderDetail(models.Model):

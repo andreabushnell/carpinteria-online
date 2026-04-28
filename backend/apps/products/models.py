@@ -7,7 +7,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
-
 class Product(models.Model):
     category = models.ForeignKey(
         Category,
@@ -30,9 +29,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-    
-    def in_stock(self):
-        return self.stock > 0
     
     def reduce_stock(self, qty):
         """Reduce stock. Validation must be done before calling (e.g., via InventoryService)."""

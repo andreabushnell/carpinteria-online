@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from backend.apps.products.models import Product
+from apps.products.models import Product
 from core import exceptions
 
 User = settings.AUTH_USER_MODEL
@@ -17,6 +17,10 @@ class Cart(models.Model):
         indexes = [
             models.Index(fields=['user']),
         ]
+
+    def is_empty(self):
+        if not self.items.exists():
+            raise exceptions.EmptyCart()
 
     def add_item(self, product, qty=1):
         item, created = self.items.get_or_create( # get_or_create will create items if they do not exist
@@ -38,7 +42,7 @@ class Cart(models.Model):
             raise exceptions.ProductNotInCart(product.id)
 
         if amount > item.quantity:
-            raise exceptions.InvalidQuantityError(amount)
+            raise exceptions.CartInvalidQuantity(amount)
     
         item.quantity -= amount
         
