@@ -116,7 +116,7 @@ La base de datos utilizada es PostgreSQL.
 
 ### Modelo relacional
 
-![Relational Model](./docs/relational-model.png)
+![Relational Model](./docs/relational-model.drawio.png)
 
 ---
 
