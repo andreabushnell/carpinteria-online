@@ -8,8 +8,9 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     ROLE_CHOICES = (
+        # A user must be either an admin or a client
         ('admin', 'Admin'),
-        ('client', 'Client'), # A user must be either an admin or a client
+        ('client', 'Client'), 
     )
 
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='client')

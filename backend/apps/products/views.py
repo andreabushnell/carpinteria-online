@@ -1,12 +1,12 @@
-from rest_framework.viewsets import ModelViewSet
-from apps.products.models import Product
-from .serializers import ProductSerializer
-from core.services.product_service import ProductService
+from rest_framework import viewsets
+from .models import Product, Category
+from .serializers import ProductSerializer, CategorySerializer
 
-class ProductViewSet(ModelViewSet):
+class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-    def perform_create(self, serializer):
-        ProductService.create_product(serializer.validated_data)
-        serializer.save()
+
+class CateogoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

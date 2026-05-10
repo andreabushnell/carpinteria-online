@@ -12,6 +12,6 @@ if (-not (Test-Path "venv")) {
 
 pip install -r requirements.txt # Installs packages
 
-python manage.py migrate # Applies migrations
+cd ..
 
 Write-Host "Backend cargado"

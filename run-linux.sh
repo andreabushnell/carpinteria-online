@@ -1,11 +1,14 @@
 echo "Iniciando aplicacion en Linux"
 
-# Grant permissions to bash executables inside scripts/ 
+# Grant permissions to bash executables inside scripts/
 chmod +x scripts/*.sh
 
-# Run db setup and backend scripts
-.scripts/setup.sh
-.scripts/run_backend.sh
+# Initializes database and sets up backend
+./scripts/init_db.sh
+./scripts/setup_backend.sh
+# Optional database reset / fresh seeded start (commented for now):
+# ./scripts/reset_backend.sh
+./scripts/run_backend.sh
 
 # If permission issues exist execute the following:
 # Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
