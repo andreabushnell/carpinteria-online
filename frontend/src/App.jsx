@@ -1,18 +1,10 @@
-import { BrowserRouter } from "react-router-dom";
-import AppRouter from "./routes/AppRouter";
-import { AuthProvider } from "./features/auth/AuthContext";
-import { AuthInit } from "./features/auth/AuthInit";
-
-import "./styles/global.css";
-import "./styles/variables.css";
+import { AuthProvider } from "./features/auth/context/AuthProvider";
+import AuthDebugPage from "./features/auth/pages/AuthDebugPage";
 
 function App() {
   return (
     <AuthProvider>
-      <AuthInit />
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
+      <AuthDebugPage />
     </AuthProvider>
   );
 }
