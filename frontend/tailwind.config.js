@@ -5,8 +5,8 @@ export default {
     extend: {
       colors: {
         primary: "#8B5E3C",
-        footer: "#5B3A29",
         accent: "#3FA37C",
+        footer: "#5B3A29",
         bg: "#F7F5F2",
         surface: "#FFFFFF",
         text: "#2F2F2F",
@@ -32,6 +32,8 @@ export default {
       },
 
       spacing: {
+        none: "0px",
+        xxs: "2px",
         xs: "4px",
         sm: "8px",
         md: "16px",

@@ -1,15 +1,14 @@
-import UserDropdown from "@/components/store/nav/UserMenu";
 import { Link, Outlet } from "react-router-dom";
 
-export default function StoreLayout() {
+export default function BaseLayout() {
 
     const styles = {
         container: "grid grid-cols-8 grid-rows-[1.5fr_8fr_1fr] min-h-screen w-full",
 
-        header: "grid grid-cols-8 col-span-8 row-start-1 grid-flow-col bg-primary sticky top-0",
+        header: "grid grid-cols-6 col-span-8 row-start-1 grid-flow-col bg-primary sticky top-0",
         logo: "grid col-span-1 place-self-center",
-        title: "grid col-span-6 place-self-center text-5xl font-bold",
-        icons: "grid col-span-1 grid-cols-2",
+        title: "grid col-span-4 place-self-center text-5xl font-bold",
+        icons: "grid col-span-1",
 
         main: "grid grid-cols-8 col-span-8 row-start-2 grid-flow-col bg-bg",
 
@@ -26,16 +25,7 @@ export default function StoreLayout() {
                 </Link>
             </div>
             <div className={styles.title}><h1>CARPINTERÍA ONLINE</h1></div>
-            <div className={styles.icons}>
-              <div className="grid justify-self-end self-center hover:bg-hover transition-colors shadow-sm focus:outline-none overflow-hidden">
-                <Link to="/cart">
-                <img src="/cart-icon.png" alt="Icono del carrito" className="object-contain p-sm"/>
-                </Link>
-              </div>
-              <div className="grid place-self-center">
-                <UserDropdown />
-              </div>
-            </div>
+            <div className={styles.icons}></div>
         </header>
 
         <main className={styles.main}>
