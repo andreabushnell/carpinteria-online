@@ -1,5 +1,7 @@
+// src/features/auth/context/AuthProvider.jsx
 import { useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
+import apiClient from "../../../api/client/axios"; 
 
 import {
   setToken,
@@ -30,13 +32,17 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
+        apiClient.defaults.headers.common["Authorization"] = `Token ${token}`;
+        
         const currentUser = await getMe();
         setUserState(currentUser);
         setUser(currentUser);
       } catch (error) {
-        console.warn("Session invalid or expired:", error);
+        console.warn("Session invalid or expired, resetting states:", error);
         clearAuth();
         setUserState(null);
+        
+        delete apiClient.defaults.headers.common["Authorization"];
       } finally {
         setLoading(false);
       }
@@ -47,8 +53,12 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     const data = await loginUser(credentials);
+    const resolvedToken = data.access || data.token;
 
-    setToken(data.access || data.token);
+    setToken(resolvedToken);
+    
+    apiClient.defaults.headers.common["Authorization"] = `Token ${resolvedToken}`;
+
     setUser(data.user);
     setUserState(data.user);
 
@@ -57,8 +67,12 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     const data = await registerUser(userData);
+    const resolvedToken = data.access || data.token;
 
-    setToken(data.access || data.token);
+    setToken(resolvedToken);
+    
+    apiClient.defaults.headers.common["Authorization"] = `Token ${resolvedToken}`;
+
     setUser(data.user);
     setUserState(data.user);
 
@@ -71,6 +85,7 @@ export const AuthProvider = ({ children }) => {
     } finally {
       clearAuth();
       setUserState(null);
+      delete apiClient.defaults.headers.common["Authorization"];
     }
   };
 

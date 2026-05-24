@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-
 import BaseLayout from "../layouts/BaseLayout";
 import DashboardPage from "../../pages/admin/DashboardPage";
 import OrdersPage from "../../pages/admin/OrdersPage";
@@ -13,6 +12,9 @@ export default function AdminRouter() {
   return (
     <Routes>
       <Route element={<BaseLayout />}>
+        <Route path="/login" element={<Navigate to="/admin" replace />} />
+        <Route path="/register" element={<Navigate to="/admin" replace />} />
+        
         <Route path="/admin" element={<DashboardPage />} />
         <Route path="/admin/orders" element={<OrdersPage />} />
         <Route path="/admin/categories" element={<CategoriesPage />} />
@@ -20,6 +22,8 @@ export default function AdminRouter() {
         <Route path="/admin/products/detail" element={<ProductDetailPageAdmin />} />
         <Route path="/admin/users/list" element={<UsersListPage />} />
         <Route path="/admin/users/detail" element={<UserDetailPage />} />
+        
+
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>

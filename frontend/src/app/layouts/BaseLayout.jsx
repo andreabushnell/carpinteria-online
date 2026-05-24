@@ -10,7 +10,7 @@ export default function BaseLayout() {
         title: "grid col-span-4 place-self-center text-5xl font-bold",
         icons: "grid col-span-1",
 
-        main: "grid grid-cols-8 col-span-8 row-start-2 grid-flow-col bg-bg",
+        main: "grid grid-cols-8 col-span-8 row-start-2 bg-bg w-full",
 
         footer: "grid col-span-8 row-start-3 bg-footer place-items-center",
     }
@@ -29,7 +29,7 @@ export default function BaseLayout() {
         </header>
 
         <main className={styles.main}>
-            <Outlet></Outlet>
+            <Outlet />
         </main>
 
         <footer className={styles.footer}>

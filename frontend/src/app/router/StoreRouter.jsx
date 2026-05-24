@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-
 import StoreLayout from "../layouts/StoreLayout";
 import HomePage from "../../pages/store/HomePage";
 import ProductDetailPage from "../../pages/store/ProductDetailPage";
@@ -14,6 +13,9 @@ export default function StoreRouter() {
   return (
     <Routes>
       <Route element={<StoreLayout />}>
+        <Route path="/login" element={<Navigate to="/" replace />} />
+        <Route path="/register" element={<Navigate to="/" replace />} />
+
         <Route path="/" element={<HomePage />} />
         <Route path="/products/:id" element={<ProductDetailPage />} />
         <Route path="/cart" element={<CartPage />} />
@@ -22,6 +24,7 @@ export default function StoreRouter() {
         <Route path="/orders" element={<StoreOrdersPage />} />
         <Route path="/orders/:id" element={<StoreOrderDetailPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

@@ -1,53 +1,71 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardPage() {
-  return (
-    <div className="space-y-lg">
-      <div className="flex flex-col gap-md sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-display">Admin Dashboard</h1>
-          <p className="text-muted mt-sm">
-            Use the sidebar to manage orders, products, users, and categories.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-sm">
-          <Link
-            to="/admin/orders"
-            className="rounded-sm border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition hover:bg-hover"
-          >
-            Orders
-          </Link>
-          <Link
-            to="/admin/products/list"
-            className="rounded-sm border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition hover:bg-hover"
-          >
-            Products
-          </Link>
-          <Link
-            to="/admin/users/list"
-            className="rounded-sm border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition hover:bg-hover"
-          >
-            Users
-          </Link>
-        </div>
-      </div>
+  const navigate = useNavigate();
 
-      <div className="grid gap-lg lg:grid-cols-3">
-        <div className="rounded-md border border-border bg-surface p-lg shadow-sm">
-          <div className="text-sm text-muted uppercase tracking-[0.24em] mb-sm">Orders</div>
-          <div className="text-3xl font-semibold">14</div>
-          <div className="text-sm text-muted mt-sm">Active orders waiting review</div>
-        </div>
-        <div className="rounded-md border border-border bg-surface p-lg shadow-sm">
-          <div className="text-sm text-muted uppercase tracking-[0.24em] mb-sm">Products</div>
-          <div className="text-3xl font-semibold">128</div>
-          <div className="text-sm text-muted mt-sm">Products in the catalog</div>
-        </div>
-        <div className="rounded-md border border-border bg-surface p-lg shadow-sm">
-          <div className="text-sm text-muted uppercase tracking-[0.24em] mb-sm">Users</div>
-          <div className="text-3xl font-semibold">32</div>
-          <div className="text-sm text-muted mt-sm">Registered admins and customers</div>
-        </div>
+  const domains = [
+    {
+      title: "Categorías",
+      description: "Gestión de categorías",
+      path: "/admin/categories",
+      countKey: "categoriesCount",
+      color: "blue-panel",
+    },
+    {
+      title: "Productos",
+      description: "Gestión de inventario",
+      path: "/admin/products/list",
+      countKey: "productsCount",
+      color: "green-panel",
+    },
+    {
+      title: "Pedidos",
+      description: "Gestión de pedidos",
+      path: "/admin/orders",
+      countKey: "ordersCount",
+      color: "orange-panel",
+    },
+    {
+      title: "Usuarios",
+      description: "Gestión de usuarios",
+      path: "/admin/users/list",
+      countKey: "usersCount",
+      color: "purple-panel",
+    },
+  ]
+
+  const styles = {
+    container: "",
+    sidebar: "",
+    panel: ""
+  }
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.sidebar}>
+        <nav>
+          <button className="active">Inicio</button>
+          <button onClick={() => navigate("/admin/categories")}>Categorías</button>
+          <button onClick={() => navigate("/admin/products/list")}>Productos</button>
+          <button onClick={() => navigate("/admin/orders")}>Pedidos</button>
+          <button onClick={() => navigate("/admin/users/list")}>Usuarios</button>
+        </nav>
+      </div>
+      <div className={styles.panel}>
+        <section>
+          {domains.map((domain) => (
+            <div
+              key={domain.title}
+              className={`domain-card ${domain.color}`}
+              onClick={() => navigate(domain.path)}>
+                <div>
+                  <h3>{domain.title}</h3>
+                  <p>{domain.description}</p>
+                </div>
+                <div>{"->"}</div>
+            </div>
+          ))}
+        </section>
       </div>
     </div>
   );
