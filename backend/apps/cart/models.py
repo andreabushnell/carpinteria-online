@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from apps.products.models import Product
 from core import exceptions
 
 User = settings.AUTH_USER_MODEL
@@ -23,19 +22,19 @@ class Cart(models.Model):
             raise exceptions.EmptyCart()
 
     def add_item(self, product, qty=1):
-        item, created = self.items.get_or_create( # get_or_create will create items if they do not exist
+        item, created = self.items.get_or_create( 
             product=product,
-            defaults={'quantity': qty} # Sets the default quantity for newly created items
+            defaults={'quantity': qty} 
         )
 
-        if not created: # Not created means that the item is already in the cart
+        if not created: 
             item.quantity += qty
             item.save(update_fields=['quantity'])
 
-    def remove_item(self, product): # Removes item from cart completely
+    def remove_item(self, product): 
         self.items.filter(product=product).delete()
 
-    def decrease_unit(self, product, amount=1): # Reduce quantity for a cart item 
+    def decrease_unit(self, product, amount=1): 
         try:
             item = self.items.get(product=product)
         except CartItem.DoesNotExist:
@@ -54,7 +53,10 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    
+
+    product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
+    
     quantity = models.IntegerField()
 
     class Meta:

@@ -1,25 +1,24 @@
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+
 from apps.cart.views import CartViewSet, CartItemViewSet
-from apps.orders.views import OrderViewSet, OrderDetailViewSet
-from apps.products.views import ProductViewSet, CateogoryViewSet
-from apps.users.views import UserViewSet
-
-from django.urls import path
-from apps.users.views import LoginView, LogoutView, MeView, RegisterView
-
+from apps.orders.views import OrderViewSet
+from apps.products.views import ProductViewSet, CategoryViewSet
+from apps.users.views import UserViewSet, LoginView, RegisterView, LogoutView
 
 router = DefaultRouter()
-router.register(r'cart', CartViewSet)
-router.register(r'cart-items', CartItemViewSet)
-router.register(r'order', OrderViewSet)
-router.register(r'order-detail', OrderDetailViewSet)
-router.register(r'products', ProductViewSet)
-router.register(r'categories', CateogoryViewSet)
-router.register(r'users', UserViewSet)
 
-urlpatterns = router.urls + [
-    path('login/', LoginView.as_view(), name='login'),
-    path('register/', RegisterView.as_view(), name='register'),
-    path('logout/', LogoutView.as_view(), name='logout'),
-    path('me/', MeView.as_view(), name='me'),
+router.register(r'users', UserViewSet, basename='user')
+router.register(r'products', ProductViewSet, basename='product')
+router.register(r'categories', CategoryViewSet, basename='category')
+router.register(r'cart', CartViewSet, basename='cart')
+router.register(r'cart-items', CartItemViewSet, basename='cart-item')
+router.register(r'orders', OrderViewSet, basename='order')
+
+urlpatterns = [
+    path('', include(router.urls)),
+
+    path('auth/login/', LoginView.as_view(), name='auth-login'),
+    path('auth/register/', RegisterView.as_view(), name='auth-register'),
+    path('auth/logout/', LogoutView.as_view(), name='auth-logout'),
 ]

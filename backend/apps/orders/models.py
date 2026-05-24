@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from apps.products.models import Product
 from core import exceptions
 
 User = settings.AUTH_USER_MODEL
@@ -39,9 +38,7 @@ class Order(models.Model):
         }
 
         if new_state not in allowed_transitions[self.state]:
-
             reason = self._get_transition_error(new_state)
-
             raise exceptions.InvalidTransition(
                 from_state=self.state,
                 to_state=new_state,
@@ -52,7 +49,6 @@ class Order(models.Model):
         self.save(update_fields=['state'])
 
     def _get_transition_error(self, new_state):
-        # Returns the reason for a transition error
         if self.state == 'pending' and new_state == 'shipped':
             return "Order must be paid before shipping"
 
@@ -67,7 +63,9 @@ class Order(models.Model):
 
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='details')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
+    
     quantity = models.IntegerField()
     unitary_price = models.DecimalField(max_digits=10, decimal_places=2)
 

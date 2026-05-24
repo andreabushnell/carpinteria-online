@@ -11,4 +11,3 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = '__all__'
         
-# Serializers convert models to JSON, which is important for compatibility with React
