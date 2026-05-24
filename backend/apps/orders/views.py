@@ -4,8 +4,11 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import Order
 from .serializers import OrderSerializer
+from core import exceptions
+from rest_framework.authentication import TokenAuthentication
 
 class OrderViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
     

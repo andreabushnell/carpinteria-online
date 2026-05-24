@@ -2,6 +2,8 @@ from django.contrib.auth import login as django_login, logout as django_logout
 from rest_framework import status, viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -58,6 +60,7 @@ class RegisterView(APIView):
             'user': UserSerializer(user).data
         }, status=status.HTTP_201_CREATED)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class LoginView(APIView):
     permission_classes = [AllowAny]
 

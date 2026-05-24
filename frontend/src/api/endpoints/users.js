@@ -1,7 +1,5 @@
 import axiosClient from "../client/axios";
 
-// Implementations for the USERS domain
-
 
 // AUTHENTICATION
 export const loginUser = async (credentials) => {
@@ -25,7 +23,7 @@ export const getMe = async () => {
 };
 
 
-// USERS (PUBLIC)
+// USERS 
 export const getProfile = async () => {
   const res = await axiosClient.get("/profile/");
   return res.data;

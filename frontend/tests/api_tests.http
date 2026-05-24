@@ -1,0 +1,135 @@
+### ====================================================================
+### CONFIGURATION VARIABLES
+### ====================================================================
+@baseUrl = http://127.0.0.1:8000/api
+@email = super@admin.com
+@password = makemeadmin
+
+### ====================================================================
+### 1. AUTHENTICATION
+### ====================================================================
+# @name login
+# @no-cookie-jar
+POST {{baseUrl}}/auth/login/
+Content-Type: application/json
+
+{
+    "email": "{{email}}",
+    "password": "{{password}}"
+}
+
+### Capture your Django Token
+@authToken = {{login.response.body.token}}
+
+
+### ====================================================================
+### 2. USERS DOMAIN
+### ====================================================================
+
+### Get Logged-in User Profile
+GET {{baseUrl}}/users/me/
+Authorization: Token {{authToken}}
+
+
+### ====================================================================
+### 3. PRODUCTS & CATEGORIES
+### ====================================================================
+
+### Create a Category
+# @name createCategory
+POST {{baseUrl}}/categories/
+Content-Type: application/json
+Authorization: Token {{authToken}}
+
+{
+    "name": "Electronics",
+    "description": "Gadgets and accessories"
+}
+
+### Capture Category ID
+@categoryId = {{createCategory.response.body.id}}
+
+
+### Create a Product
+# @name createProduct
+POST {{baseUrl}}/products/
+Content-Type: application/json
+Authorization: Token {{authToken}}
+
+{
+    "name": "Mechanical Keyboard",
+    "description": "RGB Backlit blue switches",
+    "price": 89.99,
+    "stock": 15,
+    "category": "{{categoryId}}"
+}
+
+### Capture Product ID
+@productId = {{createProduct.response.body.id}}
+
+
+### Get Product Stock Level (Fixed 404 via backend signature adjustment)
+GET {{baseUrl}}/products/{{productId}}/stock/
+Authorization: Token {{authToken}}
+
+
+### ====================================================================
+### 4. CART DOMAIN
+### ====================================================================
+
+### Fetch Cart Listing
+# @name getCart
+GET {{baseUrl}}/cart/
+Authorization: Token {{authToken}}
+
+### 🌟 NEW: Capture the first cart ID from the returned list array
+@cartId = 1
+
+
+### Add a Line Item to the Cart
+# @name addCartItem
+POST {{baseUrl}}/cart-items/
+Content-Type: application/json
+Authorization: Token {{authToken}}
+
+{
+    "cart": "{{cartId}}",
+    "product": "{{productId}}",
+    "quantity": 2
+}
+
+
+### ====================================================================
+### 5. ORDERS DOMAIN & STATE MACHINE
+### ====================================================================
+
+### Checkout: Create a new pending order record
+# @name checkoutOrder
+POST {{baseUrl}}/orders/
+Content-Type: application/json
+Authorization: Token {{authToken}}
+
+{}
+
+### Capture Order ID
+@orderId = {{checkoutOrder.response.body.id}}
+
+
+### Order Transition Test: Update Status (Valid Transition)
+POST {{baseUrl}}/orders/{{orderId}}/update-status/
+Content-Type: application/json
+Authorization: Token {{authToken}}
+
+{
+    "state": "paid"
+}
+
+
+### Order Transition Test: Update Status (Invalid Transition)
+POST {{baseUrl}}/orders/{{orderId}}/update-status/
+Content-Type: application/json
+Authorization: Token {{authToken}}
+
+{
+    "state": "pending"
+}

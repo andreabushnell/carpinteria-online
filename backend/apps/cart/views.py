@@ -2,8 +2,10 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import Cart, CartItem
 from .serializers import CartSerializer, CartItemSerializer
+from rest_framework.authentication import TokenAuthentication
 
 class CartViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
     serializer_class = CartSerializer
     permission_classes = [IsAuthenticated]
 
@@ -13,6 +15,7 @@ class CartViewSet(viewsets.ModelViewSet):
         return Cart.objects.filter(user=self.request.user)
 
 class CartItemViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
     serializer_class = CartItemSerializer
     permission_classes = [IsAuthenticated]
 
