@@ -1,12 +1,10 @@
 import { AuthProvider } from "./features/auth/context/AuthProvider";
-import AuthDebugPage from "./features/auth/pages/AuthDebugPage";
+import AppRouter from "./app/router/AppRouter";
 
-function App() {
+export default function App() {
   return (
     <AuthProvider>
-      <AuthDebugPage />
+      <AppRouter />
     </AuthProvider>
   );
 }
-
-export default App;
