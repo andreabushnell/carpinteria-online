@@ -50,7 +50,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class RegisterView(APIView):
     permission_classes = [AllowAny]
 
-    def change_password(self, request):
+    def post(self, request):
         serializer = UserCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
