@@ -6,6 +6,10 @@ import sys
 load_dotenv(os.path.join(Path(__file__).resolve().parent.parent.parent, '.env'))
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'E:/media')
+
+MEDIA_URL = '/media/'
+
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'

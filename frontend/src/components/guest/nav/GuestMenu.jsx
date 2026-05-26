@@ -22,13 +22,13 @@ export default function UserDropdown() {
       
       <button 
         onClick={toggleDropdown}
-        className="w-full h-full flex items-center justify-center hover:bg-hover  overflow-hidden"
+        className="w-full h-full flex items-center justify-center hover:bg-hover overflow-hidden bg-white p-xs"
       >
         <UserIcon className="w-full h-full" />
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 mt-xs w-64 bg-white border border-surface rounded-none shadow-xl z-50 text-right">
+        <div className="absolute top-full right-0 mt-xs w-40 bg-white border border-surface rounded-none shadow-xl z-50 text-right">
 
           <div className="flex flex-col text-(--text-secondary)">
             <a 

@@ -7,12 +7,12 @@
   </defs>
   <g clip-path="url(#a)">
     <g clip-path="url(#b)">
-      <path fill="#3FA37C" stroke="#FFFFFF" stroke-width="50" stroke-linecap="round" stroke-linejoin="round" d="M720 254.25c-39.766 0-72 32.234-72 72s32.234 72 72 72 72-32.234 72-72-32.234-72-72-72Zm0 0"/>
+      <path fill="#3FA37C" stroke="#3FA37C" stroke-width="50" stroke-linecap="round" stroke-linejoin="round" d="M720 254.25c-39.766 0-72 32.234-72 72s32.234 72 72 72 72-32.234 72-72-32.234-72-72-72Zm0 0"/>
     </g>
   </g>
   <g clip-path="url(#c)">
     <g clip-path="url(#d)">
-      <path fill="#3FA37C" stroke="#FFFFFF" stroke-width="50" stroke-linecap="round" stroke-linejoin="round" d="M676.047 415.129c13.492-2.04 28.922-3.379 44.023-3.379s29.637 1.148 43.028 3.187c.285.063.57.063.855.13 50.293 8.156 87.336 29.703 88.047 54.882v85.801H588v-85.738c.71-25.371 37.184-46.914 88.047-54.883Zm0 0"/>
+      <path fill="#3FA37C" stroke="#3FA37C" stroke-width="50" stroke-linecap="round" stroke-linejoin="round" d="M676.047 415.129c13.492-2.04 28.922-3.379 44.023-3.379s29.637 1.148 43.028 3.187c.285.063.57.063.855.13 50.293 8.156 87.336 29.703 88.047 54.882v85.801H588v-85.738c.71-25.371 37.184-46.914 88.047-54.883Zm0 0"/>
     </g>
   </g>
 </svg>

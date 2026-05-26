@@ -4,13 +4,13 @@ import LogoSvg from '../../assets/logoSvg.svg?react';
 
 export default function StoreLayout() {
     const styles = {
-        container: "grid grid-cols-8 grid-rows-[1.5fr_8fr_1fr] min-h-screen w-full",
+        container: "grid grid-cols-8 grid-rows-[2fr_20fr_1fr] min-h-screen w-full",
 
-        header: "grid grid-cols-8 col-span-8 row-start-1 grid-flow-col bg-primary sticky top-0",
+        header: "grid grid-cols-8 col-span-8 row-start-1 grid-flow-col bg-primary sticky top-0 z-50",
         logo: "grid col-span-1 place-self-center",
         title: "grid col-span-6 place-self-center",
         
-        icons: "grid col-span-1 grid-cols-2 m-lg p-md",
+        icons: "grid col-span-1 grid-cols-2 m-lg p-md overflow-visible",
 
         main: "grid grid-cols-8 col-span-8 row-start-2 bg-bg w-full",
 
@@ -29,7 +29,7 @@ export default function StoreLayout() {
                 </div>
                 
                 <div className={styles.icons}>
-                    <div className="grid place-self-center h-full w-full place-items-center">
+                    <div className="grid place-self-center h-full w-auto place-items-center bg-white p-sm shadow-xl/30 rounded-sm relative z-10">
                         <Link 
                             to="/cart" 
                             className="w-10 h-10 flex items-center justify-center hover:bg-hover transition-colors overflow-hidden"
@@ -42,7 +42,7 @@ export default function StoreLayout() {
                         </Link>
                     </div>
 
-                    <div className="grid place-self-center h-full w-full place-items-center">
+                    <div className="grid place-self-center h-full w-auto place-items-center bg-white p-sm shadow-xl/30 rounded-sm relative z-10">
                         <UserDropdown />
                     </div>
                 </div>

@@ -4,9 +4,9 @@ import LogoSvg from '../../assets/logoSvg.svg?react';
 export default function BaseLayout() {
 
     const styles = {
-        container: "grid grid-cols-8 grid-rows-[1.5fr_8fr_1fr] min-h-screen w-full",
+        container: "grid grid-cols-8 grid-rows-[2fr_20fr_1fr] min-h-screen w-full",
 
-        header: "grid grid-cols-6 col-span-8 row-start-1 grid-flow-col bg-primary sticky top-0",
+        header: "grid grid-cols-6 col-span-8 row-start-1 grid-flow-col bg-primary sticky top-0 z-50",
         logo: "grid col-span-1 place-self-center",
         title: "grid col-span-4 place-self-center",
         icons: "grid col-span-1",

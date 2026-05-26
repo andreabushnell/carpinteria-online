@@ -1,15 +1,30 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import svgr from 'vite-plugin-svgr';
+import svgr from "vite-plugin-svgr";
 import path from "path";
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), svgr()],
+    plugins: [react(), tailwindcss(), svgr()],
 
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+    resolve: {
+        alias: {
+            "@": path.resolve(__dirname, "./src"),
+        },
     },
-  },
+
+    server: {
+        proxy: {
+            // 🔌 Catch anything starting with /api/ and pass it straight to Django
+            "/api": {
+                target: "http://127.0.0.1:8000",
+                changeOrigin: true,
+                secure: false,
+            },
+            "/media": {
+                target: "http://127.0.0.1:8000",
+                changeOrigin: true,
+            },
+        },
+    },
 });

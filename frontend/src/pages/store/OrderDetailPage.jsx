@@ -1,5 +1,3 @@
-﻿
-
-export default function OrderDetailPage() {
+﻿export default function OrdersPage() {
   return <></>;
 }

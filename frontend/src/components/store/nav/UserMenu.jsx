@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'; // 👈 Import useNavigate
-import { useAuth } from '../../../features/auth/hooks/useAuth'; // 👈 Import your auth hook
+import { useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../../../features/auth/hooks/useAuth'; 
 import UserIcon from '../../../assets/userIconSvg.svg?react'; 
 
 export default function UserDropdown() {
@@ -40,7 +40,7 @@ export default function UserDropdown() {
       
       <button 
         onClick={toggleDropdown}
-        className="w-full h-full flex items-center justify-center hover:bg-hover overflow-hidden transition-colors"
+        className="w-full h-full flex items-center justify-center hover:bg-hover overflow-hidden bg-white p-xs"
       >
         <UserIcon className="w-full h-full" />
       </button>

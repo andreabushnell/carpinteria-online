@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from apps.cart.views import CartViewSet, CartItemViewSet
 from apps.orders.views import OrderViewSet
-from apps.products.views import ProductViewSet, CategoryViewSet
+from apps.products.views import ProductViewSet, CategoryViewSet, DynamicHomepageView
 from apps.users.views import UserViewSet, LoginView, RegisterView, LogoutView
 
 router = DefaultRouter()
@@ -21,4 +21,5 @@ urlpatterns = [
     path('auth/login/', LoginView.as_view(), name='auth-login'),
     path('auth/register/', RegisterView.as_view(), name='auth-register'),
     path('auth/logout/', LogoutView.as_view(), name='auth-logout'),
+    path('homepage/', DynamicHomepageView.as_view(), name='homepage'),
 ]
