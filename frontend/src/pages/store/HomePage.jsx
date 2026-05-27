@@ -1,4 +1,5 @@
 ﻿import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ProductCard from '../../features/products/store/ProductCard'; 
 
 const CategoryCarousel = ({ category }) => {
@@ -21,9 +22,18 @@ const CategoryCarousel = ({ category }) => {
 
   return (
     <section className="carousel-section w-full">
-      <h2 className="text-2xl font-bold font-display mb-sm uppercase tracking-wide">
-        {category.name}
-      </h2>
+      
+      <Link 
+        to={`/categories/${category.id}`} 
+        className="group inline-block mb-sm transition-transform"
+      >
+        <h2 className="text-2xl font-bold font-display uppercase tracking-wide text-slate-800 group-hover:text-slate-600 flex items-center gap-xs cursor-pointer">
+          {category.name}
+          <span className="text-xl opacity-0 group-hover:opacity-100 translate-x-[-5px] group-hover:translate-x-0 transition-all duration-200 text-slate-500">
+            &rarr;
+          </span>
+        </h2>
+      </Link>
       
       {category.products.length === 0 ? (
         <p className="text-neutral-400 italic">No hay productos en esta categoría.</p>
@@ -40,11 +50,9 @@ const CategoryCarousel = ({ category }) => {
 
           <div className="flex-1 w-full overflow-hidden">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-md w-full">
-              
               {visibleProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
-
             </div>
           </div>
 

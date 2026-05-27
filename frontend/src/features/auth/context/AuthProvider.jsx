@@ -1,7 +1,5 @@
-// src/features/auth/context/AuthProvider.jsx
 import { useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
-import apiClient from "../../../api/client/axios"; 
 
 import {
   setToken,
@@ -27,22 +25,20 @@ export const AuthProvider = ({ children }) => {
       const token = getToken();
 
       if (!token) {
+        clearAuth();
+        setUserState(null);
         setLoading(false);
         return;
       }
 
       try {
-        apiClient.defaults.headers.common["Authorization"] = `Token ${token}`;
-        
         const currentUser = await getMe();
         setUserState(currentUser);
         setUser(currentUser);
       } catch (error) {
-        console.warn("Session invalid or expired, resetting states:", error);
+        console.warn("Sesión inválida o expirada, limpiando estados:", error);
         clearAuth();
         setUserState(null);
-        
-        delete apiClient.defaults.headers.common["Authorization"];
       } finally {
         setLoading(false);
       }
@@ -56,9 +52,6 @@ export const AuthProvider = ({ children }) => {
     const resolvedToken = data.access || data.token;
 
     setToken(resolvedToken);
-    
-    apiClient.defaults.headers.common["Authorization"] = `Token ${resolvedToken}`;
-
     setUser(data.user);
     setUserState(data.user);
 
@@ -70,9 +63,6 @@ export const AuthProvider = ({ children }) => {
     const resolvedToken = data.access || data.token;
 
     setToken(resolvedToken);
-    
-    apiClient.defaults.headers.common["Authorization"] = `Token ${resolvedToken}`;
-
     setUser(data.user);
     setUserState(data.user);
 
@@ -82,10 +72,11 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await logoutUser();
+    } catch (error) {
+      console.error("Error al revocar token en el backend:", error);
     } finally {
       clearAuth();
       setUserState(null);
-      delete apiClient.defaults.headers.common["Authorization"];
     }
   };
 

@@ -6,8 +6,6 @@ import StoreRouter from "./StoreRouter";
 export default function AppRouter() {
   const { loading, isAuthenticated, user } = useAuth();
 
-  console.log("AUTH CHECK:", { loading, isAuthenticated, userRole: user?.role || user?.is_staff });
-
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-bg">

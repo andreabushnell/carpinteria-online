@@ -4,6 +4,7 @@ import HomePage from "../../pages/store/HomePage";
 import ProductDetailPage from "../../pages/store/ProductDetailPage";
 import LoginPage from "../../pages/auth/LoginPage";
 import RegisterPage from "../../pages/auth/RegisterPage";
+import CategoryPage from "@/pages/store/CategoryPage";
 
 export default function GuestRouter() {
   return (
@@ -13,6 +14,10 @@ export default function GuestRouter() {
         <Route path="/products/:id" element={<ProductDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/categories/:id" element={<CategoryPage />} />
+        <Route path="/search" element={<CategoryPage />} />
+
+        
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

@@ -8,6 +8,7 @@ import OrderSuccessPage from "../../pages/store/OrderSuccessPage";
 import StoreOrdersPage from "../../pages/store/OrdersPage";
 import StoreOrderDetailPage from "../../pages/store/OrderDetailPage";
 import ProfilePage from "../../pages/store/ProfilePage";
+import CategoryPage from "@/pages/store/CategoryPage";
 
 export default function StoreRouter() {
   return (
@@ -24,6 +25,8 @@ export default function StoreRouter() {
         <Route path="/orders" element={<StoreOrdersPage />} />
         <Route path="/orders/:id" element={<StoreOrderDetailPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/categories/:id" element={<CategoryPage />} />
+        <Route path="/search" element={<CategoryPage />} />
         
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
