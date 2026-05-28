@@ -6,15 +6,11 @@ import sys
 load_dotenv(os.path.join(Path(__file__).resolve().parent.parent.parent, '.env'))
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'E:/media')
-
-MEDIA_URL = '/media/'
-
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -72,7 +68,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME', 'ecommerce_db'),
         'USER': os.getenv('DB_USER', 'ecommerce_user'),
         'PASSWORD': os.getenv('DB_PASSWORD', 'password'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
         'PORT': os.getenv('DB_PORT', '5432'),
     }
 }

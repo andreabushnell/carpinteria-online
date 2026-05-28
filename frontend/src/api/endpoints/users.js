@@ -3,22 +3,22 @@ import axiosClient from "../client/axios";
 
 // AUTHENTICATION
 export const loginUser = async (credentials) => {
-    const res = await axiosClient.post("auth/login/", credentials);
+    const res = await axiosClient.post("/auth/login/", credentials);
     return res.data;
 };
 
 export const registerUser = async (userData) => {
-  const res = await axiosClient.post("auth/register/", userData);
+  const res = await axiosClient.post("/auth/register/", userData);
   return res.data;
 };
 
 export const logoutUser = async () => {
-  const res = await axiosClient.post("auth/logout/");
+  const res = await axiosClient.post("/auth/logout/");
   return res.data;
 };
 
 export const getMe = async () => {
-  const res = await axiosClient.get("users/me/");
+  const res = await axiosClient.get("/users/me/");
   return res.data;
 };
 

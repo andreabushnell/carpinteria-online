@@ -7,7 +7,6 @@ from apps.products.views import ProductViewSet, CategoryViewSet, DynamicHomepage
 from apps.users.views import UserViewSet, LoginView, RegisterView, LogoutView
 
 router = DefaultRouter()
-
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'products', ProductViewSet, basename='product')
 router.register(r'categories', CategoryViewSet, basename='category')
