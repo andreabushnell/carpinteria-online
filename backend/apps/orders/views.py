@@ -20,36 +20,36 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Order.objects.all()
         return Order.objects.filter(user=self.request.user)
 
-def perform_create(self, serializer):
-    with transaction.atomic():
-        try:
-            cart = Cart.objects.get(user=self.request.user)
-            cart_items = list(cart.items.all()) 
-        except Cart.DoesNotExist:
-            raise serializers.ValidationError({"error": "No se encontró el carrito."})
-        if not cart_items:
-            raise serializers.ValidationError({"error": "El carrito está vacío."})
-        running_total = Decimal('0.00')
-        for item in cart_items:
-            raw_price = getattr(item.product, 'price', None) or getattr(item.product, 'precio', 0)
-            running_total += Decimal(str(raw_price)) * item.quantity
-        iva_multiplier = Decimal('0.21')
-        total_iva = running_total * iva_multiplier
-        final_total = running_total + total_iva
-        order = serializer.save(
-            user=self.request.user, 
-            state='pending', 
-            total=final_total
-        )
-        for item in cart_items:
-            raw_price = getattr(item.product, 'price', None) or getattr(item.product, 'precio', 0)
-            OrderDetail.objects.create(
-                order=order,
-                product=item.product,
-                quantity=item.quantity,
-                unitary_price=Decimal(str(raw_price))
+    def perform_create(self, serializer):
+        with transaction.atomic():
+            try:
+                cart = Cart.objects.get(user=self.request.user)
+                cart_items = list(cart.items.all()) 
+            except Cart.DoesNotExist:
+                raise serializers.ValidationError({"error": "No se encontró el carrito."})
+            if not cart_items:
+                raise serializers.ValidationError({"error": "El carrito está vacío."})
+            running_total = Decimal('0.00')
+            for item in cart_items:
+                raw_price = getattr(item.product, 'price', None) or getattr(item.product, 'precio', 0)
+                running_total += Decimal(str(raw_price)) * item.quantity
+            iva_multiplier = Decimal('0.21')
+            total_iva = running_total * iva_multiplier
+            final_total = running_total + total_iva
+            order = serializer.save(
+                user=self.request.user, 
+                state='pending', 
+                total=final_total
             )
-        cart.items.all().delete()
+            for item in cart_items:
+                raw_price = getattr(item.product, 'price', None) or getattr(item.product, 'precio', 0)
+                OrderDetail.objects.create(
+                    order=order,
+                    product=item.product,
+                    quantity=item.quantity,
+                    unitary_price=Decimal(str(raw_price))
+                )
+            cart.items.all().delete()
 
     @action(detail=True, methods=['post'], url_path='update-status')
     def update_status(self, request, pk=None):

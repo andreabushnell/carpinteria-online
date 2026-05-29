@@ -5,7 +5,7 @@ import SubNavbar from '../../components/store/nav/SubNavbar';
 
 export default function GuestLayout() {
     const styles = {
-        container: "grid grid-cols-8 grid-rows-[auto_20fr_1fr] min-h-screen w-full", 
+        container: "grid grid-cols-8 grid-rows-[auto_10fr_1fr] min-h-screen w-full", 
 
         header: "col-span-8 row-start-1 flex flex-col bg-primary sticky top-0 z-50",
         

@@ -1,18 +1,19 @@
 import UserDropdown from "@/components/store/nav/UserMenu";
 import { Link, Outlet } from "react-router-dom";
 import LogoSvg from "../../assets/logoSvg.svg?react";
+import CartSvg from "../../assets/cartSvg.svg?react";
 import SubNavbar from "../../components/store/nav/SubNavbar";
 
 export default function StoreLayout() {
     const styles = {
-        container: "grid grid-cols-8 grid-rows-[auto_20fr_1fr] min-h-screen w-full", 
+        container: "grid grid-cols-8 grid-rows-[auto_10fr_1fr] min-h-screen w-full", 
 
         header: "col-span-8 row-start-1 flex flex-col bg-primary sticky top-0 z-50",
         
         headerTop: "grid grid-cols-8 grid-flow-col w-full items-center",
         logo: "grid col-span-1 place-self-center",
         title: "grid col-span-6 place-self-center",
-        icons: "grid col-span-1 grid-cols-2 m-lg p-md overflow-visible",
+        icons: "flex items-center justify-end gap-4 col-span-1 m-lg p-md overflow-visible",
 
         main: "grid grid-cols-8 col-span-8 row-start-2 bg-bg w-full",
         footer: "grid col-span-8 row-start-3 bg-footer place-items-center",
@@ -36,11 +37,7 @@ export default function StoreLayout() {
                                 to="/cart"
                                 className="w-10 h-10 flex items-center justify-center hover:bg-hover transition-colors overflow-hidden"
                             >
-                                <img
-                                    src="/cart-icon.png"
-                                    alt="Icono del carrito"
-                                    className="w-full h-full object-contain p-xs"
-                                />
+                                <CartSvg className="h-full w-full" />
                             </Link>
                         </div>
 

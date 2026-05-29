@@ -4,7 +4,7 @@ import LogoSvg from '../../assets/logoSvg.svg?react';
 export default function BaseLayout() {
 
     const styles = {
-        container: "grid grid-cols-8 grid-rows-[2fr_20fr_1fr] min-h-screen w-full",
+        container: "grid grid-cols-8 grid-rows-[auto_10fr_1fr] min-h-screen w-full",
 
         header: "grid grid-cols-6 col-span-8 row-start-1 grid-flow-col bg-primary sticky top-0 z-50",
         logo: "grid col-span-1 place-self-center",
@@ -23,7 +23,7 @@ export default function BaseLayout() {
             <div className={styles.logo}></div>
             
             <div className={styles.title}>
-                <Link to="/" className="flex items-center justify-center">
+                <Link to="/admin" className="flex items-center justify-center">
                     <LogoSvg className="h-full w-full" />
                 </Link>
             </div>

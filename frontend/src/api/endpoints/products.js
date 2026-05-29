@@ -29,8 +29,15 @@ export const deleteCategory = async (id) => {
 
 
 // PRODUCTS
-export const getProducts = async () => {
-    const res = await axiosClient.get("/products/");
+export const getProducts = async (page = null) => {
+
+    const config = {};
+
+    if (page) {
+        config.params = {page : page};
+    }
+
+    const res = await axiosClient.get("/products/", config);
     return res.data;
 };
 

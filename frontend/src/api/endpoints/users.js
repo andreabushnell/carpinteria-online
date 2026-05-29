@@ -30,12 +30,12 @@ export const getProfile = async () => {
 };
 
 export const updateProfile = async (data) => {
-  const res = await axiosClient.patch("/profile/", data);
+  const res = await axiosClient.patch("/users/me/", data);
   return res.data;
 };
 
 export const changePassword = async (data) => {
-  const res = await axiosClient.post("/change-password/", data);
+  const res = await axiosClient.post("/users/change-password/", data);
   return res.data;
 };
 
@@ -65,3 +65,11 @@ export const deleteUser = async (id) => {
   const res = await axiosClient.delete(`/users/${id}/`);
   return res.data;
 };
+<<<<<<< Updated upstream
+=======
+
+export const createUser = async() => {
+  const res = await axiosClient.create(`/users/`);
+  return res.data;
+}
+>>>>>>> Stashed changes

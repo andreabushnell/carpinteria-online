@@ -1,31 +1,71 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import BaseLayout from "../layouts/BaseLayout";
-import DashboardPage from "../../pages/admin/DashboardPage";
-import OrdersPage from "../../pages/admin/OrdersPage";
-import CategoriesPage from "../../pages/admin/CategoriesPage";
-import ProductsListPage from "../../pages/admin/ProductsListPage";
-import ProductDetailPageAdmin from "../../pages/admin/ProductDetailPage";
-import UsersListPage from "../../pages/admin/UsersListPage";
-import UserDetailPage from "../../pages/admin/UserDetailPage";
+import AdminSidebar from "../../components/admin/nav/AdminSidebar";
+import DashboardPanel from "../../components/admin/panels/DashboardPanel";
+
+import OrdersListPanel from "../../components/admin/panels/OrdersListPanel";
+import OrderDetailPanel from "../../components/admin/panels/OrderDetailPanel";
+
+import CategoriesListPanel from "../../components/admin/panels/CategoriesListPanel";
+import CategoryDetailPanel from "../../components/admin/panels/CategoryDetailPanel";
+
+import ProductsListPanel from "../../components/admin/panels/ProductsListPanel";
+import ProductDetailPanel from "../../components/admin/panels/ProductDetailPanel";
+
+import UsersListPanel from "../../components/admin/panels/UsersListPanel";
+import UserDetailPanel from "../../components/admin/panels/UserDetailPanel";
 
 export default function AdminRouter() {
-  return (
-    <Routes>
-      <Route element={<BaseLayout />}>
-        <Route path="/login" element={<Navigate to="/admin" replace />} />
-        <Route path="/register" element={<Navigate to="/admin" replace />} />
-        
-        <Route path="/admin" element={<DashboardPage />} />
-        <Route path="/admin/orders" element={<OrdersPage />} />
-        <Route path="/admin/categories" element={<CategoriesPage />} />
-        <Route path="/admin/products/list" element={<ProductsListPage />} />
-        <Route path="/admin/products/detail" element={<ProductDetailPageAdmin />} />
-        <Route path="/admin/users/list" element={<UsersListPage />} />
-        <Route path="/admin/users/detail" element={<UserDetailPage />} />
-        
+    return (
+        <Routes>
+            <Route element={<BaseLayout />}>
+                <Route
+                    path="/login"
+                    element={<Navigate to="/admin" replace />}
+                />
+                <Route
+                    path="/register"
+                    element={<Navigate to="/admin" replace />}
+                />
 
-        <Route path="*" element={<Navigate to="/admin" replace />} />
-      </Route>
-    </Routes>
-  );
+                <Route path="/admin" element={<AdminSidebar />}>
+                    <Route index element={<DashboardPanel />} />
+                    <Route
+                        path="/admin/orders/list"
+                        element={<OrdersListPanel />}
+                    />
+                    <Route
+                        path="/admin/orders/detail"
+                        element={<OrderDetailPanel />}
+                    />
+                    <Route
+                        path="/admin/categories/list"
+                        element={<CategoriesListPanel />}
+                    />
+                    <Route
+                        path="/admin/categories/detail"
+                        element={<CategoryDetailPanel />}
+                    />
+                    <Route
+                        path="/admin/products/list"
+                        element={<ProductsListPanel />}
+                    />
+                    <Route
+                        path="/admin/products/detail"
+                        element={<ProductDetailPanel />}
+                    />
+                    <Route
+                        path="/admin/users/list"
+                        element={<UsersListPanel />}
+                    />
+                    <Route
+                        path="/admin/users/detail"
+                        element={<UserDetailPanel />}
+                    />
+                </Route>
+
+                <Route path="*" element={<Navigate to="/admin" replace />} />
+            </Route>
+        </Routes>
+    );
 }
