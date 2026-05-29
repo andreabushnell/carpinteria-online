@@ -1,6 +1,5 @@
 import axiosClient from "../client/axios";
 
-
 // AUTHENTICATION
 export const loginUser = async (credentials) => {
     const res = await axiosClient.post("/auth/login/", credentials);
@@ -21,7 +20,6 @@ export const getMe = async () => {
   const res = await axiosClient.get("/users/me/");
   return res.data;
 };
-
 
 // USERS 
 export const getProfile = async () => {
@@ -44,7 +42,6 @@ export const getMyOrders = async () => {
   return res.data;
 };
 
-
 // ADMIN
 export const getUsers = async () => {
   const res = await axiosClient.get("/users/");
@@ -65,11 +62,8 @@ export const deleteUser = async (id) => {
   const res = await axiosClient.delete(`/users/${id}/`);
   return res.data;
 };
-<<<<<<< Updated upstream
-=======
 
-export const createUser = async() => {
-  const res = await axiosClient.create(`/users/`);
+export const createUser = async (userData) => {
+  const res = await axiosClient.post(`/users/`, userData);
   return res.data;
-}
->>>>>>> Stashed changes
+};

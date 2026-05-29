@@ -21,9 +21,5 @@ urlpatterns = [
     path('auth/register/', RegisterView.as_view(), name='auth-register'),
     path('auth/logout/', LogoutView.as_view(), name='auth-logout'),
     path('homepage/', DynamicHomepageView.as_view(), name='homepage'),
-<<<<<<< Updated upstream
-]
-=======
     path('orders/<int:pk>/update-status/', OrderViewSet.as_view({'post': 'update_status'}), name='order-update-status'),
 ]
->>>>>>> Stashed changes

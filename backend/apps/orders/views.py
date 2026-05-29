@@ -24,23 +24,30 @@ class OrderViewSet(viewsets.ModelViewSet):
         with transaction.atomic():
             try:
                 cart = Cart.objects.get(user=self.request.user)
-                cart_items = list(cart.items.all()) 
+                cart_items = list(cart.items.all())
             except Cart.DoesNotExist:
                 raise serializers.ValidationError({"error": "No se encontró el carrito."})
+        
             if not cart_items:
                 raise serializers.ValidationError({"error": "El carrito está vacío."})
+        
             running_total = Decimal('0.00')
             for item in cart_items:
                 raw_price = getattr(item.product, 'price', None) or getattr(item.product, 'precio', 0)
                 running_total += Decimal(str(raw_price)) * item.quantity
+        
             iva_multiplier = Decimal('0.21')
             total_iva = running_total * iva_multiplier
             final_total = running_total + total_iva
-            order = serializer.save(
-                user=self.request.user, 
-                state='pending', 
-                total=final_total
-            )
+
+
+            serializer.validated_data['user'] = self.request.user
+            serializer.validated_data['total'] = final_total
+            serializer.validated_data['state'] = 'pending'
+        
+
+            order = serializer.save()
+
             for item in cart_items:
                 raw_price = getattr(item.product, 'price', None) or getattr(item.product, 'precio', 0)
                 OrderDetail.objects.create(
@@ -49,6 +56,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                     quantity=item.quantity,
                     unitary_price=Decimal(str(raw_price))
                 )
+        
             cart.items.all().delete()
 
     @action(detail=True, methods=['post'], url_path='update-status')
