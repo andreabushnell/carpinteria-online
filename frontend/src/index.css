@@ -137,7 +137,6 @@
 }
 
 @layer base {
-  /* Reset spacing and box model */
   *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -149,7 +148,6 @@
     scroll-behavior: smooth;
   }
 
-  /* keep project defaults for typography and background */
   body {
     background-color: var(--background);
     color: var(--foreground);

@@ -13,21 +13,16 @@ class ProductViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     serializer_class = ProductSerializer
 
-    # CORREGIDO: Reemplazamos 'queryset = Product.objects.all()' por este método dinámico
     def get_queryset(self):
         queryset = Product.objects.all()
         
-        # 1. Capturamos el parámetro '?category=ID' que envía tu CategoryPage.jsx
         category_id = self.request.query_params.get('category')
         
-        # 2. Capturamos el parámetro '?search=texto' que envía tu barra de búsqueda
         search_query = self.request.query_params.get('search')
 
-        # Si viene un ID de categoría en la URL, filtramos los productos de esa categoría
         if category_id:
             queryset = queryset.filter(category_id=category_id)
             
-        # Si viene un texto de búsqueda, filtramos por nombre (sin importar mayúsculas/minúsculas)
         if search_query:
             queryset = queryset.filter(name__icontains=search_query)
 

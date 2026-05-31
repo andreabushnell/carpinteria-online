@@ -1,11 +1,11 @@
 ﻿import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import CartItem from "../../features/cart/store/CartItem";
 import { getCart, updateCartItemQuantity, removeCartItem } from "../../api/endpoints/cart";
 
 export default function CartPage() {
   const navigate = useNavigate();
-  
+
   const [cartItems, setCartItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -14,10 +14,10 @@ export default function CartPage() {
       try {
         const data = await getCart();
         const userCart = data.results && data.results[0];
-        setCartItems(userCart?.items || []); 
+        setCartItems(userCart?.items || []);
       } catch (error) {
         console.error("Error al traer el carrito del servidor:", error);
-        setCartItems([]); 
+        setCartItems([]);
       } finally {
         setIsLoading(false);
       }
@@ -48,14 +48,13 @@ export default function CartPage() {
     }
   };
 
-// 1. Calculamos el subtotal base de los productos
-const subtotal = cartItems.reduce((acc, item) => {
-  const price = item.product?.price || 0;
-  return acc + price * item.quantity;
-}, 0);
+  const subtotal = cartItems.reduce((acc, item) => {
+    const price = item.product?.price || 0;
+    return acc + price * item.quantity;
+  }, 0);
 
-const iva = subtotal * 0.21;
-const total = subtotal + iva;
+  const iva = subtotal * 0.21;
+  const total = subtotal + iva;
 
   if (isLoading) {
     return (
@@ -67,10 +66,10 @@ const total = subtotal + iva;
 
   return (
     <div className="col-span-8 container mx-auto px-sm py-md w-full max-w-5xl">
-      
+
       <div className="mb-sm">
-        <Link 
-          to="/" 
+        <Link
+          to="/"
           className="inline-flex items-center space-x-xs text-slate-600 hover:text-slate-900 transition-colors cursor-pointer group py-xxs"
         >
           <span className="text-lg transform group-hover:-translate-x-0.5 transition-transform">
@@ -96,16 +95,16 @@ const total = subtotal + iva;
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-md border border-surface p-sm bg-white rounded-sm shadow-sm w-full items-start">
-          
+
           <div className="md:col-span-2 flex flex-col w-full">
             <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-700 mb-sm border-b border-surface pb-xxs">
               Artículos seleccionados ({cartItems.length})
             </h2>
-            
+
             <div className="flex flex-col max-h-[calc(100vh-240px)] overflow-y-auto pr-xs custom-scrollbar">
               {cartItems.map((item) => (
                 <CartItem
-                  key={item.id} 
+                  key={item.id}
                   item={item}
                   onUpdateQuantity={handleUpdateQuantity}
                   onRemove={handleRemoveItem}
@@ -124,21 +123,21 @@ const total = subtotal + iva;
               </h2>
             </div>
 
-<div className="border-t border-surface pt-xs space-y-xxs text-xs font-body">
-  <div className="flex justify-between text-slate-600">
-    <span>Subtotal (Base imponible)</span>
-    <span>${subtotal.toFixed(2)}</span>
-  </div>
-  <div className="flex justify-between text-slate-600">
-    <span>IVA (21%)</span>
-    <span>${iva.toFixed(2)}</span>
-  </div>
-  
-  <div className="border-t border-surface pt-xs flex justify-between font-bold text-sm text-slate-900">
-    <span>Total (IVA incluido)</span>
-    <span className="text-accent">${total.toFixed(2)}</span>
-  </div>
-</div>
+            <div className="border-t border-surface pt-xs space-y-xxs text-xs font-body">
+              <div className="flex justify-between text-slate-600">
+                <span>Subtotal (Base imponible)</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-slate-600">
+                <span>IVA (21%)</span>
+                <span>${iva.toFixed(2)}</span>
+              </div>
+
+              <div className="border-t border-surface pt-xs flex justify-between font-bold text-sm text-slate-900">
+                <span>Total (IVA incluido)</span>
+                <span className="text-accent">${total.toFixed(2)}</span>
+              </div>
+            </div>
 
             <div className="pt-xs">
               <button

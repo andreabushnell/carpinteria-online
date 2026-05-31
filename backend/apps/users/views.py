@@ -83,7 +83,7 @@ class LoginView(APIView):
             return Response({'detail': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
         token, _ = Token.objects.get_or_create(user=user)
-        django_login(request, user)
+
         return Response({
             'token': token.key,
             'user': UserSerializer(user).data
@@ -95,6 +95,6 @@ class LogoutView(APIView):
     def post(self, request):
         if request.auth:
             request.auth.delete()
-        django_logout(request)
+
         return Response({'detail': 'Logged out'}, status=status.HTTP_200_OK)
 

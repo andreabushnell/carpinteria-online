@@ -19,19 +19,16 @@ export default function AuthDebugPage() {
     <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
       <h1>Auth Debug Panel</h1>
 
-      {/* STATUS */}
       <div>
         <p>Loading: {loading ? "true" : "false"}</p>
         <p>Authenticated: {isAuthenticated ? "true" : "false"}</p>
       </div>
 
-      {/* USER OUTPUT */}
       <div>
         <h3>Current User</h3>
         <pre>{JSON.stringify(user, null, 2)}</pre>
       </div>
 
-      {/* LOGIN TEST */}
       <div style={{ marginTop: "20px" }}>
         <h3>Test Login</h3>
 
@@ -51,7 +48,6 @@ export default function AuthDebugPage() {
         <button onClick={handleLogin}>Login</button>
       </div>
 
-      {/* LOGOUT */}
       <div style={{ marginTop: "20px" }}>
         <button onClick={logout}>Logout</button>
       </div>

@@ -1,5 +1,4 @@
-﻿// pages/store/ProductDetailPage.jsx
-import { useParams, Link } from "react-router-dom";
+﻿import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../features/auth/hooks/useAuth"; 
 import ProductDetailPanel from "../../features/products/store/ProductDetailPanel";

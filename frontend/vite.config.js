@@ -15,7 +15,6 @@ export default defineConfig({
 
     server: {
         proxy: {
-            // 🔌 Catch anything starting with /api/ and pass it straight to Django
             "/api": {
                 target: "http://127.0.0.1:8000",
                 changeOrigin: true,

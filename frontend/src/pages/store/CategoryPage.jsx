@@ -1,4 +1,3 @@
-// pages/store/CategoryPage.jsx
 import { useParams, Link, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ProductCard from "../../features/products/store/ProductCard";
@@ -9,7 +8,6 @@ export default function CategoryPage() {
   const { id } = useParams(); 
   const [searchParams] = useSearchParams();
   
-  // Mantenemos searchParams solo para capturar el texto del buscador (?q=...)
   const searchQuery = searchParams.get("q"); 
 
   const [title, setTitle] = useState("Productos");
@@ -36,8 +34,6 @@ export default function CategoryPage() {
         const res = await axiosClient.get(endpoint);
         
         if (isMounted) {
-          // Curación de datos: si tu Django mantiene la paginación global activa, 
-          // los productos vendrán dentro de .results; si la quitas en el backend, vendrán en res.data directamente.
           const data = res.data.results ? res.data.results : res.data;
           setProducts(Array.isArray(data) ? data : []);
         }
@@ -54,7 +50,7 @@ export default function CategoryPage() {
     return () => {
       isMounted = false;
     };
-  }, [id, searchQuery]); // Quitamos currentPage de las dependencias
+  }, [id, searchQuery]); 
 
   if (loading) return <div className="text-center p-xl">Cargando catálogo...</div>;
 

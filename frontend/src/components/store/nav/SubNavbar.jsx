@@ -1,4 +1,3 @@
-// components/store/nav/SubNavbar.jsx
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getCategories } from "../../../api/endpoints/products"; 
